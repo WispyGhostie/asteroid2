@@ -17,13 +17,13 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
 
-    while(screen):
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         
         
-        pygame.Surface.fill(screen, "black")
+        pygame.fill("black")
         
         
         
