@@ -10,10 +10,11 @@ def main():
     pygame.init()
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    
+        
     clock = pygame.time.Clock()
+
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     dt = 0
 
 
@@ -24,6 +25,8 @@ def main():
                 return
         
         
+        player.update(dt)
+
         screen.fill("black")
         #You call screen here because it has the width and height
         #otherwise you would call pygame.Surface.fill() to create the screen
