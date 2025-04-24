@@ -3,6 +3,7 @@
 # throughout this file
 import pygame
 import sys
+
 from constants import *
 from player import Player
 from asteroid import Asteroid
@@ -25,13 +26,13 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
+    asteroid_field = AsteroidField() 
     Shot.containers = (shot, updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
     dt = 0
 
-    asteroidfield = AsteroidField()
 
 
     while True:
@@ -40,6 +41,11 @@ def main():
                 return
         
         updatable.update(dt)
+
+        for collide in asteroids:
+            for bullet in shot:
+                if collide.collision_check(bullet):
+                    collide.kill()
 
         for collide in asteroids:
             if  collide.collision_check(player):
@@ -58,7 +64,6 @@ def main():
         pygame.display.flip()
         
         
-
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
     
