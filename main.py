@@ -41,16 +41,17 @@ def main():
                 return
         
         updatable.update(dt)
-
-        for collide in asteroids:
-            for bullet in shot:
-                if collide.collision_check(bullet):
-                    collide.kill()
+                    
 
         for collide in asteroids:
             if  collide.collision_check(player):
                 print("Game Over!")
                 sys.exit()
+
+            for bullet in shot:
+                if collide.collision_check(bullet):
+                    bullet.kill()
+                    collide.split()
 
         screen.fill("black")
         #You call screen here because it has the width and height
