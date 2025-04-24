@@ -3,7 +3,9 @@
 # throughout this file
 import pygame
 from constants import *
-from player import *
+from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
 
@@ -13,10 +15,19 @@ def main():
         
     clock = pygame.time.Clock()
 
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
     dt = 0
 
+    asteroidfield = AsteroidField()
 
 
     while True:
@@ -24,15 +35,15 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        
-        player.update(dt)
+        updatable.update(dt)
 
         screen.fill("black")
         #You call screen here because it has the width and height
         #otherwise you would call pygame.Surface.fill() to create the screen
         #with particular inputs
         
-        player.draw(screen)
+        for draw in drawable:
+            draw.draw(screen)
 
 
         pygame.display.flip()
